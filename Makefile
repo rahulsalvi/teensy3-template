@@ -13,6 +13,9 @@ OPTIONS = -DUSB_SERIAL -DLAYOUT_US_ENGLISH -DUSING_MAKEFILE
 # directory to build in
 BUILDDIR = $(abspath $(CURDIR)/build)
 
+# source directory
+SRCPATH = src
+
 # path location for Teensy 3 core
 COREPATH = cores/teensy3
 
@@ -24,7 +27,7 @@ LIBRARYPATH = libraries
 #************************************************************************
 
 # CPPFLAGS = compiler options for C and C++
-CPPFLAGS = -Wall -g -Os -mthumb -ffunction-sections -fdata-sections -nostdlib -MMD $(OPTIONS) -DF_CPU=$(TEENSY_CORE_SPEED_MHZ)000000 -Isrc -I$(COREPATH)
+CPPFLAGS = -Wall -g -Os -mthumb -ffunction-sections -fdata-sections -nostdlib -MMD $(OPTIONS) -DF_CPU=$(TEENSY_CORE_SPEED_MHZ)000000 -I$(SRCPATH) -I$(COREPATH)
 
 # compiler options for C++ only
 CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti
@@ -94,9 +97,9 @@ LC_FILES := $(wildcard $(LIBRARYPATH)/*/*.c)
 LCPP_FILES := $(wildcard $(LIBRARYPATH)/*/*.cpp)
 TC_FILES := $(wildcard $(COREPATH)/*.c)
 TCPP_FILES := $(filter-out $(COREPATH)/main.cpp, $(wildcard $(COREPATH)/*.cpp))
-C_FILES := $(wildcard src/*.c)
-CPP_FILES := $(wildcard src/*.cpp)
-INO_FILES := $(wildcard src/*.ino)
+C_FILES := $(wildcard $(SRCPATH)/*.c)
+CPP_FILES := $(wildcard $(SRCPATH)/*.cpp)
+INO_FILES := $(wildcard $(SRCPATH)/*.ino)
 
 # include paths for libraries
 L_INC := $(foreach lib,$(filter %/, $(wildcard $(LIBRARYPATH)/*/)), -I$(lib))
