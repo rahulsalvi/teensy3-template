@@ -14,7 +14,7 @@ OPTIONS = -DUSB_SERIAL -DLAYOUT_US_ENGLISH -DUSING_MAKEFILE
 BUILDDIR = $(abspath $(CURDIR)/build)
 
 # path location for Teensy 3 core
-COREPATH = teensy3
+COREPATH = cores/teensy3
 
 # path location for Arduino libraries
 LIBRARYPATH = libraries
@@ -93,7 +93,7 @@ SIZE = arm-none-eabi-size
 LC_FILES := $(wildcard $(LIBRARYPATH)/*/*.c)
 LCPP_FILES := $(wildcard $(LIBRARYPATH)/*/*.cpp)
 TC_FILES := $(wildcard $(COREPATH)/*.c)
-TCPP_FILES := $(wildcard $(COREPATH)/*.cpp)
+TCPP_FILES := $(filter-out $(COREPATH)/main.cpp, $(wildcard $(COREPATH)/*.cpp))
 C_FILES := $(wildcard src/*.c)
 CPP_FILES := $(wildcard src/*.cpp)
 INO_FILES := $(wildcard src/*.ino)
